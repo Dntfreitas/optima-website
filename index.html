@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPTIMa – Estrutura do Projeto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #0a1628;
+    --deep: #071020;
+    --teal: #0d7e8a;
+    --teal-light: #12a8b8;
+    --teal-glow: rgba(13,126,138,0.18);
+    --gold: #c8a96e;
+    --gold-light: #e2c98e;
+    --mist: rgba(255,255,255,0.07);
+    --text: #e8eef4;
+    --text-dim: rgba(232,238,244,0.55);
+    --border: rgba(13,126,138,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 20%, rgba(13,126,138,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(13,126,138,0.08) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .project-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.8;
+  }
+
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-title span {
+    color: var(--teal-light);
+  }
+
+  .project-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    margin-bottom: 30px;
+  }
+
+  .header-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .header-rule::before, .header-rule::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--teal));
+  }
+  .header-rule::after { background: linear-gradient(to left, transparent, var(--teal)); }
+
+  .header-rule span {
+    width: 6px; height: 6px;
+    background: var(--teal-light);
+    transform: rotate(45deg);
+  }
+
+  .meta-pills {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-dim);
+    background: var(--mist);
+  }
+
+  /* GRID */
+  .wps-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+
+  /* WP CARD */
+  .wp-card {
+    position: relative;
+    padding: 32px 24px 28px;
+    border-right: 1px solid var(--border);
+    background: rgba(255,255,255,0.025);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: background 0.3s;
+    overflow: hidden;
+  }
+
+  .wp-card:last-child { border-right: none; }
+
+  .wp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--teal), var(--teal-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .wp-card:hover::before { transform: scaleX(1); }
+  .wp-card:hover { background: rgba(13,126,138,0.07); }
+
+  /* WP Number */
+  .wp-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 0.85;
+    color: rgba(13,126,138,0.18);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    user-select: none;
+  }
+
+  /* WP Label */
+  .wp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 8px;
+  }
+
+  /* WP Name */
+  .wp-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Duration */
+  .wp-duration {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+    opacity: 0.8;
+  }
+
+  /* Tasks */
+  .wp-tasks {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-bottom: 18px;
+  }
+
+  .wp-tasks-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .task-item {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    padding: 4px 0 4px 12px;
+    border-left: 2px solid rgba(13,126,138,0.3);
+    margin-bottom: 5px;
+    font-weight: 300;
+  }
+
+  /* Team */
+  .wp-team {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: auto;
+  }
+
+  .wp-team-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .person {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .person:last-child { border-bottom: none; }
+
+  .person-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--ocean) 100%);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--teal-light);
+    letter-spacing: 0;
+    border: 1px solid var(--border);
+  }
+
+  .person-avatar.bolseiro {
+    background: linear-gradient(135deg, rgba(200,169,110,0.3) 0%, rgba(10,22,40,0.8) 100%);
+    border-color: rgba(200,169,110,0.4);
+    color: var(--gold-light);
+  }
+
+  .person-info { flex: 1; min-width: 0; }
+
+  .person-name {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .person-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+
+  .person-months {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--teal-light);
+    white-space: nowrap;
+    padding-top: 2px;
+    opacity: 0.7;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    padding: 18px 28px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--mist);
+  }
+
+  .legend-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-right: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .legend-dot.core {
+    background: linear-gradient(135deg, var(--teal), var(--ocean));
+    border: 1px solid var(--border);
+    color: var(--teal-light);
+  }
+
+  .legend-dot.bolseiro {
+    background: linear-gradient(135deg, rgba(200,169,110,0.3), rgba(10,22,40,0.8));
+    border: 1px solid rgba(200,169,110,0.4);
+    color: var(--gold-light);
+  }
+
+  .legend-label {
+    font-size: 11.5px;
+    color: var(--text-dim);
+  }
+
+  .legend-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  .months-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+  .months-note span { color: var(--teal-light); }
+
+  /* Fade-in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header { animation: fadeUp 0.7s ease both; }
+
+  .wp-card:nth-child(1) { animation: fadeUp 0.6s 0.1s ease both; }
+  .wp-card:nth-child(2) { animation: fadeUp 0.6s 0.2s ease both; }
+  .wp-card:nth-child(3) { animation: fadeUp 0.6s 0.3s ease both; }
+  .wp-card:nth-child(4) { animation: fadeUp 0.6s 0.4s ease both; }
+  .wp-card:nth-child(5) { animation: fadeUp 0.6s 0.5s ease both; }
+  .legend { animation: fadeUp 0.6s 0.6s ease both; }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="project-id">2025.02832.MAD · FCT: Madeira – O Turismo e o Mar</div>
+    <div class="project-title">OPTI<span>Ma</span></div>
+    <div class="project-subtitle">Optimization Platform for Tourism Intelligent Management</div>
+    <div class="header-rule"><span></span></div>
+    <div class="meta-pills">
+      <div class="pill">Universidade da Madeira · Funchal</div>
+      <div class="pill">ITI (LARSyS) - IST-ID · Lisboa</div>
+      <div class="pill">MARE (ARDITI) · Funchal</div>
+      <div class="pill">36 meses · 05/02/2026 – 04/02/2029</div>
+      <div class="pill">249 430 €</div>
+    </div>
+  </header>
+
+  <div class="wps-grid">
+
+    <!-- WP1 -->
+    <div class="wp-card">
+      <div class="wp-number">01</div>
+      <div class="wp-label">WP1 · 18 meses</div>
+      <div class="wp-name">Sensor Network Development and Data Integration</div>
+      <div class="wp-duration">Fev 2026 → Jul 2028</div>
+
+      <div class="wp-tasks">
+        <div class="wp-tasks-title">Tarefas principais</div>
+        <div class="task-item">Deploy de estações de monitorização com sensores de imagem e edge computing</div>
+        <div class="task-item">Rede LoRa com energia solar para transmissão de dados</div>
+        <div class="task-item">Integração de base de dados híbrida (PostgreSQL + PostGIS + time-series)</div>
+        <div class="task-item">Calibração e anonimização de dados de visitantes</div>
+      </div>
+
+      <div class="wp-team">
+        <div class="wp-team-title">Equipa</div>
+        <div class="person">
+          <div class="person-avatar">FM</div>
+          <div class="person-info"><div class="person-name">Fábio Mendonça</div><div class="person-role">IR · UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LP</div>
+          <div class="person-info"><div class="person-name">Lucas Pereira</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">7p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">MR</div>
+          <div class="person-info"><div class="person-name">Marko Radeta</div><div class="person-role">MARE (ARDITI)</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">SM</div>
+          <div class="person-info"><div class="person-name">Sheikh Mostafa</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">2p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">DA</div>
+          <div class="person-info"><div class="person-name">Décio Alves</div><div class="person-role">UMa</div></div>
+          <div class="person-months">1p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar bolseiro">MF</div>
+          <div class="person-info"><div class="person-name">Martim Fernandes</div><div class="person-role">Bolseiro · BI-a 04</div></div>
+          <div class="person-months">18p/m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WP2 -->
+    <div class="wp-card">
+      <div class="wp-number">02</div>
+      <div class="wp-label">WP2 · 36 meses</div>
+      <div class="wp-name">LLM Tuning and Recommendation System</div>
+      <div class="wp-duration">Fev 2026 → Jan 2029</div>
+
+      <div class="wp-tasks">
+        <div class="wp-tasks-title">Tarefas principais</div>
+        <div class="task-item">Seleção e fine-tuning de LLM open-source (Llama)</div>
+        <div class="task-item">Implementação de RAG com base de conhecimento regional</div>
+        <div class="task-item">Sistema de recomendação contextual multilingue</div>
+        <div class="task-item">Plataforma web com perfis de visitante e feedback adaptativo</div>
+      </div>
+
+      <div class="wp-team">
+        <div class="wp-team-title">Equipa</div>
+        <div class="person">
+          <div class="person-avatar">FM</div>
+          <div class="person-info"><div class="person-name">Fábio Mendonça</div><div class="person-role">IR · UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">MD</div>
+          <div class="person-info"><div class="person-name">Morgado Dias</div><div class="person-role">UMa</div></div>
+          <div class="person-months">5p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">DF</div>
+          <div class="person-info"><div class="person-name">Diogo Freitas</div><div class="person-role">UMa</div></div>
+          <div class="person-months">7p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">SM</div>
+          <div class="person-info"><div class="person-name">Sheikh Mostafa</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">2p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">DA</div>
+          <div class="person-info"><div class="person-name">Décio Alves</div><div class="person-role">UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar bolseiro">MT</div>
+          <div class="person-info"><div class="person-name">Mazyar Taghavi</div><div class="person-role">Bolseiro · BI-a 06</div></div>
+          <div class="person-months">8p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar bolseiro">IR</div>
+          <div class="person-info"><div class="person-name">Inês Rodrigues</div><div class="person-role">Bolseira · BI-a 07</div></div>
+          <div class="person-months">18p/m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WP3 -->
+    <div class="wp-card">
+      <div class="wp-number">03</div>
+      <div class="wp-label">WP3 · 28 meses</div>
+      <div class="wp-name">Dynamic Pricing and Predictive Modeling</div>
+      <div class="wp-duration">Fev 2026 → Mai 2028</div>
+
+      <div class="wp-tasks">
+        <div class="wp-tasks-title">Tarefas principais</div>
+        <div class="task-item">Modelos de elasticidade de preço e capacidade</div>
+        <div class="task-item">Algoritmo de pricing dinâmico com reinforcement learning</div>
+        <div class="task-item">Previsão de fluxos turísticos (aeroporto e porto do Funchal)</div>
+        <div class="task-item">Integração preditiva com sistema de recomendação</div>
+      </div>
+
+      <div class="wp-team">
+        <div class="wp-team-title">Equipa</div>
+        <div class="person">
+          <div class="person-avatar">FM</div>
+          <div class="person-info"><div class="person-name">Fábio Mendonça</div><div class="person-role">IR · UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LL</div>
+          <div class="person-info"><div class="person-name">Luiz Lopes</div><div class="person-role">UMa</div></div>
+          <div class="person-months">7p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LM</div>
+          <div class="person-info"><div class="person-name">Luís P. Machado</div><div class="person-role">UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">AA</div>
+          <div class="person-info"><div class="person-name">António Almeida</div><div class="person-role">UMa</div></div>
+          <div class="person-months">2p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">MD</div>
+          <div class="person-info"><div class="person-name">Morgado Dias</div><div class="person-role">UMa</div></div>
+          <div class="person-months">2p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">SM</div>
+          <div class="person-info"><div class="person-name">Sheikh Mostafa</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">2p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">DA</div>
+          <div class="person-info"><div class="person-name">Décio Alves</div><div class="person-role">UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar bolseiro">MT</div>
+          <div class="person-info"><div class="person-name">Mazyar Taghavi</div><div class="person-role">Bolseiro · BI-a 06</div></div>
+          <div class="person-months">28p/m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WP4 -->
+    <div class="wp-card">
+      <div class="wp-number">04</div>
+      <div class="wp-label">WP4 · 18 meses</div>
+      <div class="wp-name">Cultural Storytelling &amp; Knowledge Dissemination</div>
+      <div class="wp-duration">Mai 2027 → Out 2028</div>
+
+      <div class="wp-tasks">
+        <div class="wp-tasks-title">Tarefas principais</div>
+        <div class="task-item">Repositório de conteúdos histórico-culturais da Madeira</div>
+        <div class="task-item">Geração de narrativas por localização via LLM multilingue</div>
+        <div class="task-item">Mecanismos de disclosure progressivo e personalização</div>
+        <div class="task-item">Aplicação web responsiva e disseminação científica</div>
+      </div>
+
+      <div class="wp-team">
+        <div class="wp-team-title">Equipa</div>
+        <div class="person">
+          <div class="person-avatar">FM</div>
+          <div class="person-info"><div class="person-name">Fábio Mendonça</div><div class="person-role">IR · UMa</div></div>
+          <div class="person-months">3p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">AA</div>
+          <div class="person-info"><div class="person-name">António Almeida</div><div class="person-role">UMa</div></div>
+          <div class="person-months">5p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LM</div>
+          <div class="person-info"><div class="person-name">Luís P. Machado</div><div class="person-role">UMa</div></div>
+          <div class="person-months">4p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">MR</div>
+          <div class="person-info"><div class="person-name">Marko Radeta</div><div class="person-role">MARE (ARDITI)</div></div>
+          <div class="person-months">4p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">SM</div>
+          <div class="person-info"><div class="person-name">Sheikh Mostafa</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">1p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar bolseiro">IR</div>
+          <div class="person-info"><div class="person-name">Inês Rodrigues</div><div class="person-role">Bolseira · BI-a 07</div></div>
+          <div class="person-months">18p/m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WP5 -->
+    <div class="wp-card">
+      <div class="wp-number">05</div>
+      <div class="wp-label">WP5 · 36 meses</div>
+      <div class="wp-name">Project Administration and Coordination</div>
+      <div class="wp-duration">Fev 2026 → Jan 2028</div>
+
+      <div class="wp-tasks">
+        <div class="wp-tasks-title">Tarefas principais</div>
+        <div class="task-item">Reuniões quinzenais de coordenação e supervisão científica</div>
+        <div class="task-item">Gestão administrativa, financeira e de contratos</div>
+        <div class="task-item">Repositório centralizado de dados e modelos com controlo de versões</div>
+        <div class="task-item">Relatórios FCT e estratégia de publicação open-access</div>
+      </div>
+
+      <div class="wp-team">
+        <div class="wp-team-title">Equipa (núcleo)</div>
+        <div class="person">
+          <div class="person-avatar">FM</div>
+          <div class="person-info"><div class="person-name">Fábio Mendonça</div><div class="person-role">IR · UMa</div></div>
+          <div class="person-months">1p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">MD</div>
+          <div class="person-info"><div class="person-name">Morgado Dias</div><div class="person-role">UMa</div></div>
+          <div class="person-months">0.5p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LP</div>
+          <div class="person-info"><div class="person-name">Lucas Pereira</div><div class="person-role">ITI (LARSyS) - IST-ID</div></div>
+          <div class="person-months">0.5p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">AA</div>
+          <div class="person-info"><div class="person-name">António Almeida</div><div class="person-role">UMa</div></div>
+          <div class="person-months">0.5p/m</div>
+        </div>
+        <div class="person">
+          <div class="person-avatar">LM</div>
+          <div class="person-info"><div class="person-name">Luís P. Machado</div><div class="person-role">UMa</div></div>
+          <div class="person-months">0.5p/m</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-title">Legenda</div>
+    <div class="legend-item">
+      <div class="legend-dot core">I</div>
+      <div class="legend-label">Investigador</div>
+    </div>
+    <div class="legend-sep"></div>
+    <div class="legend-item">
+      <div class="legend-dot bolseiro">BI</div>
+      <div class="legend-label">Bolseiro de investigação</div>
+    </div>
+    <div class="legend-sep"></div>
+    <div class="months-note"><span>p/m</span> = pessoas/mês alocadas ao workpackage</div>
+    <div class="legend-sep"></div>
+    <div class="months-note">UMa: Universidade da Madeira &nbsp;·&nbsp; IST-ID: Instituto Superior Técnico - Universidade de Lisboa &nbsp;·&nbsp; ARDITI: Agência Regional para o Desenvolvimento da Investigação, Tecnologia e Inovação  &nbsp;·&nbsp; IR: Investigador Responsável</div>
+  </div>
+
+</div>
+</body>
+</html>
