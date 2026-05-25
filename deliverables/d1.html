@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPTIMa – Deliverable D1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #0a1628;
+    --deep: #071020;
+    --teal: #0d7e8a;
+    --teal-light: #12a8b8;
+    --teal-glow: rgba(13,126,138,0.18);
+    --gold: #c8a96e;
+    --gold-light: #e2c98e;
+    --mist: rgba(255,255,255,0.07);
+    --text: #e8eef4;
+    --text-dim: rgba(232,238,244,0.55);
+    --border: rgba(13,126,138,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 20%, rgba(13,126,138,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(13,126,138,0.08) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  header {
+    margin-bottom: 60px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 30px;
+  }
+
+  .back-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    transition: opacity 0.3s;
+  }
+
+  .back-link:hover { opacity: 0.7; }
+
+  .deliverable-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .meta-item b {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  /* CONTENT */
+  .content {
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin: 40px 0 20px;
+    color: var(--teal-light);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  p { margin-bottom: 20px; }
+
+  ol {
+    margin: 20px 0 30px 24px;
+  }
+
+  li {
+    margin-bottom: 12px;
+    padding-left: 8px;
+  }
+
+  figure {
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-align: center;
+  }
+
+  figure img {
+    max-width: 100%;
+    height: auto;
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 2px;
+  }
+
+  figcaption {
+    margin-top: 15px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .underline { text-decoration: underline; text-underline-offset: 4px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page { animation: fadeUp 0.8s ease both; }
+
+</style>
+</head>
+<body>
+<div class="page">
+  <a href="index.html" class="back-link">← Voltar para Deliverables</a>
+  
+  <header>
+    <div class="deliverable-id">Deliverable D1.1</div>
+    <h1>Monitoring Stations Development Report</h1>
+    <div class="meta">
+      <div class="meta-item"><b>Investigador</b>Martim da Silva Abreu Fernandes</div>
+      <div class="meta-item"><b>Data</b>Março 2026</div>
+      <div class="meta-item"><b>Projeto</b>OPTIMa (2025.02832.MAD)</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <h2 class="underline">Statement of Purpose</h2>
+    <p>This report is designed to explain the development process of the people counting sensor and the network structure to deliver the information of the number of tourists in various locations throughout Madeira Island.</p>
+
+    <h2 class="underline">Research Questions</h2>
+    <p>The study examines two major research questions:</p>
+    <ol>
+      <li>How to develop a sensor node to count people crossing a boundary?</li>
+      <li>How to relay the counting information from each sensor node to the database server?</li>
+    </ol>
+
+    <h2 class="underline">Hardware Restrictions</h2>
+    <p>Because of the nature of this project, a camera sensor is utilized, for its versatility and adaptability, alongside an AI detection and tracking model, at the edge, to count the number of people entering and exiting each location while retaining anonymity. For the sensor node to be placed in any location, without spatial restrictions, it necessitates a fully enclosed autonomous system with power generation, power storage and telecommunications capabilities.</p>
+
+    <h2 class="underline">Sensor Node</h2>
+    <p>Considering the hardware restrictions, the sensor node is composed from the following materials:</p>
+    <ol>
+      <li>Solar panel + MPPT charger, state of the art consensus for power generation at the sensor node;</li>
+      <li>Battery + DC/DC converter, power storage most appropriate with solar panel;</li>
+      <li>Camera sensor, versatile sensor that doesn't restrict the space for the node to implement people counting;</li>
+      <li>Microprocessor board, to run all the processing and AI needed for the program;</li>
+      <li>Meshtastic node, for a simpler configuration of the MAC layer to provide multiple access of the sensor nodes to the gateway, alongside the PHY layer of LoRa for long range communication.</li>
+    </ol>
+
+    <figure>
+      <img src="media/image1.png" alt="Sensor Node Architecture">
+      <figcaption>Figure 1 – Sensor Node Architecture</figcaption>
+    </figure>
+
+    <h2 class="underline">People Counting Algorithm</h2>
+    <p>To count the number of people crossing a boundary, two regions are defined in the image: an inner zone and an outer zone. The program goes through each person's track and compares the current position with the previous position. If the current position is in the inner zone and the previous position is in the outer zone, it means that person entered the area of interest, so it increments the counter of people. If the current position is in the outer zone and the previous position is in the inner zone, it means that person exited the area of interest, so it decrements the counter.</p>
+
+    <h2 class="underline">Network Architecture</h2>
+    <p>As the name implies, Meshtastic uses a mesh architecture to communicate between each node. It has 3 main node types: sensor nodes, routers, gateways. The sensor nodes, normally, wake up randomly, sample the data, transmit the information and then go back to sleep. The routers are continuously listening for packets and retransmitting them when able to do so. The gateways are base nodes that are connected to the Internet via WiFi and transmit the data with the MQTT protocol to a MQTT Broker server.</p>
+    
+    <p>To transmit a message from a sensor node to the database server, firstly, the sensor node transmits a LoRa packet, that may or may not need to use a router for coverage, to the gateway node. The gateway node translates the received LoRa packet into a WiFi packet with the MQTT protocol, publishing the sensor data to the MQTT Broker server. The database server subscribes to the message channel of the MQTT Broker server, to read the sensor data, and then adds the information to the database.</p>
+
+    <figure>
+      <img src="media/image2.png" alt="Sensor Network Architecture">
+      <figcaption>Figure 2 – Sensor Network Architecture</figcaption>
+    </figure>
+  </div>
+</div>
+</body>
+</html>

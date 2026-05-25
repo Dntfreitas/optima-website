@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPTIMa – Deliverables</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #0a1628;
+    --deep: #071020;
+    --teal: #0d7e8a;
+    --teal-light: #12a8b8;
+    --teal-glow: rgba(13,126,138,0.18);
+    --gold: #c8a96e;
+    --gold-light: #e2c98e;
+    --mist: rgba(255,255,255,0.07);
+    --text: #e8eef4;
+    --text-dim: rgba(232,238,244,0.55);
+    --border: rgba(13,126,138,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: var(--teal-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 20%, rgba(13,126,138,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(13,126,138,0.08) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .project-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.8;
+  }
+
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .project-title span {
+    color: var(--teal-light);
+  }
+
+  .project-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    margin-bottom: 30px;
+  }
+
+  .header-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .header-rule::before, .header-rule::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--teal));
+  }
+  .header-rule::after { background: linear-gradient(to left, transparent, var(--teal)); }
+
+  .header-rule span {
+    width: 6px; height: 6px;
+    background: var(--teal-light);
+    transform: rotate(45deg);
+  }
+
+  .meta-pills {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-dim);
+    background: var(--mist);
+  }
+
+  /* DELIVERABLES LIST */
+  .deliverables-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .wp-section {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.025);
+    padding: 32px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .wp-section:hover {
+    background: rgba(13,126,138,0.05);
+  }
+
+  .wp-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--teal), var(--teal-light));
+  }
+
+  .wp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+
+  .wp-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .wp-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+  }
+
+  .wp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text);
+  }
+
+  .wp-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .deliverable-item {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(13,126,138,0.15);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .deliverable-item:hover {
+    border-color: var(--teal-light);
+    transform: translateX(4px);
+  }
+
+  .deliverable-status {
+    width: 8px;
+    height: 8px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--teal-glow);
+  }
+
+  .deliverable-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .deliverable-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .deliverable-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* Fade-in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header { animation: fadeUp 0.7s ease both; }
+  .wp-section:nth-child(1) { animation: fadeUp 0.6s 0.1s ease both; }
+  .wp-section:nth-child(2) { animation: fadeUp 0.6s 0.2s ease both; }
+  .wp-section:nth-child(3) { animation: fadeUp 0.6s 0.3s ease both; }
+  .wp-section:nth-child(4) { animation: fadeUp 0.6s 0.4s ease both; }
+  .wp-section:nth-child(5) { animation: fadeUp 0.6s 0.5s ease both; }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="project-id"><a href="https://doi.org/10.54499/2025.02832.MAD" target="_blank">2025.02832.MAD</a> · FCT: Madeira – O Turismo e o Mar</div>
+    <div class="project-title">OPTI<span>Ma</span> Deliverables</div>
+    <div class="project-subtitle">Listagem de Resultados e Entregáveis por Work Package</div>
+    <div class="header-rule"><span></span></div>
+    <div class="meta-pills">
+      <div class="pill"><a href="../">Voltar ao Início</a></div>
+      <div class="pill">36 meses</div>
+      <div class="pill">Horizonte 2026-2029</div>
+    </div>
+  </header>
+
+  <div class="deliverables-list">
+
+    <!-- WP1 -->
+    <section class="wp-section">
+      <div class="wp-header">
+        <div class="wp-title-group">
+          <span class="wp-id">WP1</span>
+          <h2 class="wp-name">Sensor Network Development and Data Integration</h2>
+        </div>
+        <span class="wp-tag">Infraestrutura</span>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name"><a href="d1.html">Monitoring Stations & LoRa Network Setup</a></div>
+            <div class="deliverable-meta">Hardware Deployment & Long-Range Communication</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Hybrid Database Integration</div>
+            <div class="deliverable-meta">PostgreSQL + PostGIS + Time-series</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Data Anonymization System</div>
+            <div class="deliverable-meta">Privacidade & Calibração</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP2 -->
+    <section class="wp-section">
+      <div class="wp-header">
+        <div class="wp-title-group">
+          <span class="wp-id">WP2</span>
+          <h2 class="wp-name">LLM Tuning and Recommendation System</h2>
+        </div>
+        <span class="wp-tag">Inteligência Artificial</span>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Fine-tuned Open-Source LLM</div>
+            <div class="deliverable-meta">Llama Optimization</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Regional RAG Implementation</div>
+            <div class="deliverable-meta">Base de Conhecimento</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Multilingual Recommendation System</div>
+            <div class="deliverable-meta">Algoritmos Contextuais</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Web Platform Prototype</div>
+            <div class="deliverable-meta">Interface de Utilizador</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP3 -->
+    <section class="wp-section">
+      <div class="wp-header">
+        <div class="wp-title-group">
+          <span class="wp-id">WP3</span>
+          <h2 class="wp-name">Dynamic Pricing and Predictive Modeling</h2>
+        </div>
+        <span class="wp-tag">Modelagem & Analytics</span>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Price Elasticity Models</div>
+            <div class="deliverable-meta">Capacidade & Procura</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Dynamic Pricing Algorithm</div>
+            <div class="deliverable-meta">Reinforcement Learning</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Tourist Flow Prediction Models</div>
+            <div class="deliverable-meta">Ar & Mar</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Predictive Integration System</div>
+            <div class="deliverable-meta">Engine de Recomendação</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP4 -->
+    <section class="wp-section">
+      <div class="wp-header">
+        <div class="wp-title-group">
+          <span class="wp-id">WP4</span>
+          <h2 class="wp-name">Cultural Storytelling & Knowledge Dissemination</h2>
+        </div>
+        <span class="wp-tag">Conteúdos & Web</span>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Cultural Content Repository</div>
+            <div class="deliverable-meta">Património Histórico</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Narrative Generation System</div>
+            <div class="deliverable-meta">Geolocalização & LLM</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Progressive Disclosure Mechanisms</div>
+            <div class="deliverable-meta">Personalização UX</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Responsive Web App</div>
+            <div class="deliverable-meta">Frontend Final</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP5 -->
+    <section class="wp-section">
+      <div class="wp-header">
+        <div class="wp-title-group">
+          <span class="wp-id">WP5</span>
+          <h2 class="wp-name">Project Administration and Coordination</h2>
+        </div>
+        <span class="wp-tag">Gestão</span>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Coordination Reports</div>
+            <div class="deliverable-meta">Reuniões Quinzenais</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Financial/Administrative Reports</div>
+            <div class="deliverable-meta">Gestão de Contratos</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">Centralized Data/Model Repository</div>
+            <div class="deliverable-meta">Version Control</div>
+          </div>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-status"></div>
+          <div class="deliverable-content">
+            <div class="deliverable-name">FCT Reports & Open-Access Strategy</div>
+            <div class="deliverable-meta">Disseminação Científica</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>
+</body>
+</html>
